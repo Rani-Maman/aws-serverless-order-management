@@ -1,0 +1,13 @@
+# build artefacts
+*.zip
+layer/python/
+__pycache__/
+*.pyc
+
+# local config and credentials
+.env
+*.pem
+vars.ps1
+.aws/
+
+.DS_Store

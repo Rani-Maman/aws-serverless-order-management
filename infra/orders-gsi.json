@@ -1,0 +1,1 @@
+[{"IndexName":"creation_date-index","KeySchema":[{"AttributeName":"entity","KeyType":"HASH"},{"AttributeName":"creation_date","KeyType":"RANGE"}],"Projection":{"ProjectionType":"ALL"}}]

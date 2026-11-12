@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Order Management System</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Order Management System</h1>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="orders">Orders</button>
+    <button class="tab" data-tab="notifications">Notifications</button>
+    <button class="tab" data-tab="reports">PDF Report</button>
+    <button class="tab" data-tab="scheduled">Scheduled Reports (EventBridge)</button>
+  </nav>
+
+  <!-- ORDERS TAB -->
+  <section id="orders" class="tab-panel active">
+    <h2>Create Order</h2>
+    <form id="create-order-form">
+      <input type="text" id="o-description" placeholder="Description" required />
+      <input type="number" id="o-price" placeholder="Price" step="0.01" required />
+      <button type="submit">Create</button>
+    </form>
+
+    <h2>All Orders (sorted by creation date)</h2>
+    <button id="refresh-orders">Refresh</button>
+    <table id="orders-table">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Created</th>
+          <th>Last Modified</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <h2>Update Order</h2>
+    <form id="update-order-form">
+      <input type="text" id="u-id" placeholder="Order ID" required />
+      <input type="text" id="u-description" placeholder="New description (optional)" />
+      <input type="number" id="u-price" placeholder="New price (optional)" step="0.01" />
+      <button type="submit">Update</button>
+    </form>
+  </section>
+
+  <!-- NOTIFICATIONS TAB -->
+  <section id="notifications" class="tab-panel">
+    <h2>Subscribe to Order-Deletion Notifications</h2>
+    <form id="subscribe-form">
+      <input type="email" id="sub-email" placeholder="email@example.com" required />
+      <button type="submit">Subscribe</button>
+    </form>
+    <p class="hint">You will receive a confirmation email from AWS SNS — click the link inside to activate.</p>
+
+    <h2>Unsubscribe</h2>
+    <form id="unsubscribe-form">
+      <input type="email" id="unsub-email" placeholder="email@example.com" required />
+      <button type="submit">Unsubscribe</button>
+    </form>
+  </section>
+
+  <!-- REPORTS TAB -->
+  <section id="reports" class="tab-panel">
+    <h2>Deleted Orders PDF Summary</h2>
+    <p>Generates a PDF from every TXT backup of deleted orders in S3 and returns a download URL.</p>
+    <button id="gen-pdf">Generate PDF</button>
+    <div id="pdf-result"></div>
+  </section>
+
+  <!-- SCHEDULED REPORTS (FREESTYLE) -->
+  <section id="scheduled" class="tab-panel">
+    <h2>📅 Auto-Generated Reports (Freestyle: Amazon EventBridge)</h2>
+    <p>
+      An <strong>EventBridge Scheduler</strong> rule runs every hour and triggers a Lambda
+      that builds a PDF summary of all deleted orders, storing it in S3. The list below is fetched
+      from S3 and refreshed on demand — every entry is proof the schedule fired automatically without
+      any user action.
+    </p>
+    <button id="refresh-scheduled">Refresh List</button>
+    <span id="scheduled-counter" class="hint" style="margin-left:12px;"></span>
+    <table id="scheduled-table">
+      <thead>
+        <tr>
+          <th>File</th>
+          <th>Generated At</th>
+          <th>Size</th>
+          <th>Download</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <button id="show-more-scheduled" style="display:none; margin-top:12px;">Show more</button>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>
