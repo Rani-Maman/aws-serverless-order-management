@@ -99,7 +99,8 @@ reportlab is not in the standard Lambda runtime, so we package it as a layer.
 
 ```powershell
 mkdir layer\python
-pip install reportlab -t layer\python
+# Linux wheels are required: Lambda runs on Linux (a plain Windows install fails on import)
+pip install reportlab --platform manylinux2014_x86_64 --implementation cp --python-version 3.12 --only-binary=:all: --target layer\python
 Compress-Archive -Path layer\python -DestinationPath reportlab-layer.zip -Force
 
 $LAYER_ARN = (aws lambda publish-layer-version `
