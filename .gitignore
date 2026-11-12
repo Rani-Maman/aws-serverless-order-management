@@ -11,3 +11,4 @@ vars.ps1
 .aws/
 
 .DS_Store
+.env.*
