@@ -91,7 +91,3 @@ The original deployment has been torn down, so there is no live demo.
 - Infrastructure as code (SAM or CDK) in place of the CLI runbook.
 - A dead-letter queue and retry policy on the stream handler.
 - Pagination on `GET /orders`.
-
-## Credits
-
-Built by [Rani Maman](https://github.com/Rani-Maman) and Guy Yad Shalom as the final project of an AWS cloud computing course.
